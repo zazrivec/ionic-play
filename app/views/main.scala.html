@@ -1,0 +1,39 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>@title</title>
+
+        @import play.api.Play.current
+        @import play.api.Mode
+        @if(current.mode == Mode.Dev) {
+            <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/ionic.css"))'>
+            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/app.css")">
+            <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/ionic.bundle.js"))'></script>
+
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/app.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/services.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/controllers.js")'></script>
+        }
+        @if(current.mode == Mode.Prod) {
+            <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/ionic.min.css"))'>
+            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/app.css")">
+            <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/ionic.bundle.min.js"))'></script>
+
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/app.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/services.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/controllers.js")'></script>
+        }
+    </head>
+
+    <!--
+        'starter' is the name of this angular module (js/app.js)
+    -->
+    <body ng-app="starter" animation="slide-left-right-ios7">
+        @content
+    </body>
+</html>
