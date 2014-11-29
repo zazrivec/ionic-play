@@ -1,0 +1,20 @@
+<ion-view title="{{account.title}}">
+  <ion-content padding="true">
+    <ion-list>
+      <a class="item item-icon-right" ng-href="#/app/account/{{account.id}}/trans">
+        Pohyby na účte
+        <i class="icon ion-chevron-right"></i>
+      </a>
+      <ion-item>
+        Číslo:<span class="item-note">{{account.nbr}}</span>
+      </ion-item>
+      <ion-item>
+        IBAN:<span class="item-note">{{account.iban}}</span>
+      </ion-item>
+      <ion-item>
+        Stav:<span class="item-note">{{account.balance}} €</span>
+      </ion-item>
+    </ion-list>
+    <p>{{ account.description }}</p>
+  </ion-content>
+</ion-view>

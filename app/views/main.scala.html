@@ -11,22 +11,25 @@
         @import play.api.Play.current
         @import play.api.Mode
         @if(current.mode == Mode.Dev) {
-            <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/ionic.css"))'>
-            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/app.css")">
-            <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/ionic.bundle.js"))'></script>
+            <link rel="stylesheet" href="@routes.Assets.at("css/app.css")">
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/ionic.bundle.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/angular-locale_sk-sk.js")'></script>
 
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/app.js")'></script>
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/services.js")'></script>
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/controllers.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/app.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/services.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/controllers.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/filters.js")'></script>
+
         }
         @if(current.mode == Mode.Prod) {
-            <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/ionic.min.css"))'>
-            <link rel="stylesheet" href="@routes.Assets.at("stylesheets/app.css")">
-            <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/ionic.bundle.min.js"))'></script>
+            <link rel="stylesheet" href="@routes.Assets.at("css/app.min.css")">
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/ionic.bundle.min.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("javascripts/angular-locale_sk-sk.js")'></script>
 
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/app.js")'></script>
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/services.js")'></script>
-            <script type='text/javascript' src='@routes.Assets.at("javascripts/controllers.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/app.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/services.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/controllers.js")'></script>
+            <script type='text/javascript' src='@routes.Assets.at("js/filters.js")'></script>
         }
     </head>
 

@@ -5,6 +5,10 @@
 # Home page
 GET        /                     controllers.Application.index
 
+# API
+GET     /account/:id             @controllers.Services.findAccounts(id: Int)
+POST    /account/:id/tx          @controllers.Services.findTx(id: Int, p : Long ?=0)
+
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file         controllers.Assets.at(path="/public", file)
 

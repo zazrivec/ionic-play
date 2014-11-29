@@ -1,0 +1,16 @@
+<ion-view title="Pohyby">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="t in tx" type="item-text-wrap">
+        <i class="icon" ng-class="{'ion-arrow-graph-up-right balanced' : t.type == 'd', 'ion-arrow-graph-down-right assertive' : t.type == 'c'}"></i>&nbsp;<b>{{t.type | tx}}</b>:{{t.note}}
+        <div class="row">
+          <div class="col col-66">
+            <p><small>Dátum spraovania {{t.process | date : format : shortDate}}</small></p>
+            <p><small>Dátum zúčtovania {{t.book | date : format : shortDate}}</small></p>
+          </div>
+          <div class="col"><span class="text-right" ng-class="{'assertive' : t.type == 'd', 'balanced' : t.type == 'c'}">{{t.amount | currency }}</span></div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

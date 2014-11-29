@@ -1,0 +1,16 @@
+<ion-view title="Vytvorit platbu">
+  <ion-content>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <div class="input-label">Príkazca</div>
+        <select ng-model="account" ng-options="account.title for account in accounts"></select>
+      </label>
+      <label class="item item-input">
+        <div class="input-label">Príjemca</div>
+        <input type="email">
+      </label>
+      <ion-toggle>Notifikovať o výsledku</ion-toggle>
+      <button class="button button-positive button-block">Odoslať</button>
+    </div>
+  </ion-content>
+</ion-view>

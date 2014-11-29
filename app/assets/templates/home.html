@@ -1,0 +1,41 @@
+<ion-view title="Domov">
+  <ion-content>
+
+    <ion-list>
+      <ion-item class="item-divider">
+        <i class="icon ion-calendar"></i>
+        Aktualny bankovy den:
+        <span class="item-note">12.12.2014</span>
+      </ion-item>
+
+      <ion-item class="item-divider">
+        <i class="icon ion-cash"></i>
+        Účty
+      </ion-item>
+
+      <ion-item ng-repeat="a in accounts" type="item-text-wrap" ng-href="#/app/account/{{a.id}}">
+        {{a.title}}
+        <span class="item-note">{{a.balance}} €</span>
+      </ion-item>
+
+      <ion-item class="item-divider">
+        <i class="icon ion-card"></i>
+        Karty
+      </ion-item>
+
+      <div class="item item-body" ng-repeat="c in cards">
+        <a ng-href="#/app/card/{{c.id}}">
+          <img class="full-image" ng-src="assets/images/card-{{c.type}}.png">
+          <h3>{{c.title}}</h3>
+        </a>
+      </div>
+
+      <ion-item class="item-divider">
+        <i class="icon ion-stats-bars"></i>
+        Uvery
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+</ion-view>
