@@ -25,17 +25,24 @@ class Services extends Controller with MongoController {
   import models._
   import models.JsonFormats._
 
-  def owner() = Action.async {
+  def firstOwner() = Action.async {
 
-    val futureOwner: Future[Option[Owner]] = owners.find(Json.obj()).one[Owner]
+    val futureOwner: Future[Option[JsValue]] = owners.find(Json.obj()).one[JsValue]
 
-    val futureOwnerJson: Future[JsObject] = futureOwner.map { owner => owner.map { Json.obj(_) } }
-
-    futureOwnerJson.map {
-      owner =>
-        Ok(owner)
+    futureOwner.map {
+      case Some(owner) => Ok(owner)
+      case None => NotFound(Json.obj("message" -> "No such item"))
     }
+  }
 
+  def owner(id: String) = Action.async {
+
+    val futureOwner: Future[Option[JsValue]] = owners.find(Json.obj("_id" -> Json.obj("$oid" -> id))).one[JsValue]
+
+    futureOwner.map {
+      case Some(owner) => Ok(owner)
+      case None => NotFound(Json.obj("message" -> "No such item"))
+    }
   }
 
   def findAccounts(id : String) = Action.async {
@@ -45,10 +52,11 @@ class Services extends Controller with MongoController {
 
     val futureAccountsList: Future[List[Account]] = cursor.collect[List]()
 
-    val futureAccountJsonArray: Future[JsArray] = futureAccountsList.map { account => Json.arr(account) }
+    val futureAccountJsonArray: Future[JsArray] = futureAccountsList.map {
+      Json.arr(_)
+    }
     futureAccountJsonArray.map {
-      accounts =>
-        Ok(accounts(0))
+      Ok(_)
     }
   }
 
@@ -62,13 +70,12 @@ class Services extends Controller with MongoController {
     val futureTxList: Future[List[Tx]] = cursor.collect[List]()
 
     // transform the list into a JsArray
-    val futureTxJsonArray: Future[JsArray] = futureTxList.map { txes =>
-      Json.arr(txes)
+    val futureTxJsonArray: Future[JsArray] = futureTxList.map {
+      Json.arr(_)
     }
     // everything's ok! Let's reply with the array
     futureTxJsonArray.map {
-      tx =>
-        Ok(tx(0))
+      Ok(_)
     }
   }
 

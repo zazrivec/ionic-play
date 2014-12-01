@@ -3,14 +3,16 @@
 # ~~~~
 
 # Home page
-GET        /                     controllers.Application.index
+GET        /                       controllers.Application.index
 
 # API
-GET     /account/:id             @controllers.Services.findAccounts(id: String)
-GET    /account/:id/tx          @controllers.Services.findTx(id: String, b: Long ?=0, p : Long ?=20)
+GET        /owners                 @controllers.Services.firstOwner()
+GET        /owners/:id             @controllers.Services.owner(id: String)
+GET        /accounts/:id           @controllers.Services.findAccounts(id: String)
+GET        /accounts/:id/tx        @controllers.Services.findTx(id: String, b: Long ?=0, p : Long ?=20)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file         controllers.Assets.at(path="/public", file)
+GET        /assets/*file           controllers.Assets.at(path="/public", file)
 
 # Enable webjar based resources to be returned
-GET        /webjars/*file        controllers.WebJarAssets.at(file)
+GET        /webjars/*file          controllers.WebJarAssets.at(file)
