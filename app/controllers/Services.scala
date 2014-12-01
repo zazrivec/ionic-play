@@ -33,6 +33,7 @@ class Services extends Controller with MongoController {
       case Some(owner) => Ok(owner)
       case None => NotFound(Json.obj("message" -> "No such item"))
     }
+
   }
 
   def owner(id: String) = Action.async {
@@ -43,6 +44,7 @@ class Services extends Controller with MongoController {
       case Some(owner) => Ok(owner)
       case None => NotFound(Json.obj("message" -> "No such item"))
     }
+
   }
 
   def findAccounts(id : String) = Action.async {
@@ -52,12 +54,14 @@ class Services extends Controller with MongoController {
 
     val futureAccountsList: Future[List[Account]] = cursor.collect[List]()
 
-    val futureAccountJsonArray: Future[JsArray] = futureAccountsList.map {
-      Json.arr(_)
+    val futureAccountJsonArray: Future[JsArray] = futureAccountsList.map { accounts =>
+      Json.arr(accounts)
     }
-    futureAccountJsonArray.map {
-      Ok(_)
+
+    futureAccountJsonArray.map { accounts =>
+      Ok(accounts)
     }
+
   }
 
   def findTx(accountId: String, bookBefore: Long, page: Long) = Action.async {
@@ -70,13 +74,14 @@ class Services extends Controller with MongoController {
     val futureTxList: Future[List[Tx]] = cursor.collect[List]()
 
     // transform the list into a JsArray
-    val futureTxJsonArray: Future[JsArray] = futureTxList.map {
-      Json.arr(_)
+    val futureTxJsonArray: Future[JsArray] = futureTxList.map { tx =>
+      Json.arr(tx)
     }
     // everything's ok! Let's reply with the array
-    futureTxJsonArray.map {
-      Ok(_)
+    futureTxJsonArray.map { tx =>
+      Ok(tx)
     }
+
   }
 
 }

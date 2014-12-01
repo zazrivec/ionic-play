@@ -9,7 +9,7 @@ import reactivemongo.bson.BSONObjectID
 
 case class Tx(accountId: BSONObjectID, `type`: String, note:String, account: String, process: DateTime, book: DateTime, amount: Double)
 
-case class Account(_id: Option[BSONObjectID] = None, owner: BSONObjectID, title: String, balance: Double, nbr: String, iban: String, description: String)
+case class Account(_id: Option[BSONObjectID] = None, owner: BSONObjectID, title: String, balance: Double, nbr: String, iban: String, description: Option[String] = None)
 
 case class Owner(_id: Option[BSONObjectID] = None, name: String)
 
