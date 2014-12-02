@@ -1,9 +1,10 @@
 package controllers
 
 import org.joda.time.DateTime
+import org.joda.time.format.ISODateTimeFormat
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.json.collection.JSONCollection
-import reactivemongo.bson.{BSONDocument, BSONObjectID}
+import reactivemongo.bson.{BSONDateTime, BSONHandler, Macros}
 import scala.concurrent.Future
 import reactivemongo.api.{QueryOpts, Cursor}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -24,6 +25,13 @@ class Services extends Controller with MongoController {
 
   import models._
   import models.JsonFormats._
+
+
+  implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
+    val fmt = ISODateTimeFormat.dateTime()
+    def read(time: BSONDateTime) = new DateTime(time.value)
+    def write(jdtime: DateTime) = BSONDateTime(jdtime.getMillis)
+  }
 
   def firstOwner() = Action.async {
 
@@ -64,9 +72,25 @@ class Services extends Controller with MongoController {
 
   }
 
+  def account(id : String) = Action.async {
+    val futureAccount: Future[Option[JsValue]] = accounts.
+      find(Json.obj("_id" -> Json.obj("$oid" -> id))).
+      one[JsValue]
+
+    futureAccount.map {
+      case Some(account) => Ok(account)
+      case None => NotFound(Json.obj("message" -> "No such item"))
+    }
+
+  }
+
   def findTx(accountId: String, bookBefore: Long, page: Long) = Action.async {
     val cursor: Cursor[Tx] = txs.
-      find(Json.obj("accountId" -> Json.obj("$oid" -> accountId), "book" -> Json.obj("$lt" -> bookBefore))).
+      find(
+        Json.obj(
+          "accountId" -> Json.obj("$oid" -> accountId)//,
+          //"book" -> Json.obj("$lt" -> DateTime.now().minus(bookBefore))
+        )).
       sort(Json.obj("book" -> 1)).
 //      options(batchSizeN = 10)
       cursor[Tx]
