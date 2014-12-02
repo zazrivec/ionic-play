@@ -39,3 +39,16 @@ object JsonFormats {
 
   implicit val dateTimeFormats = Format(dateTimeRead, dateTimeWrite)
 }
+
+/*
+{
+"_id" : ObjectId("547d630adc3635d6461cd229"),
+"accountId" : ObjectId("547c68847b210c8bd299ad2f"),
+"type" : "D",
+"note" : "Prevod/internet",
+"account" : "2600000000003",
+"process" : ISODate("2014-01-22T15:56:59.301+01:00"),
+"book" : ISODate("2014-01-22T15:56:59.301+01:00"),
+"amount" : 9.699999999999999
+}
+*/
